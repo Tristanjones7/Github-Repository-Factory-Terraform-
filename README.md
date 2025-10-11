@@ -318,6 +318,7 @@ Template: templates/index.tftpl
 <p align="center">
   <sub>© ${date} ${name}</sub>
 </p>
+
 Run
 terraform init
 terraform validate
@@ -325,15 +326,7 @@ terraform apply
 Update only the page content
 terraform plan  -target=github_repository_file.index
 terraform apply -target=github_repository_file.index
-Screenshots
-Place images in /images and reference them in this README:
-./images/hero.png — top of the project page
-./images/architecture.png — architecture diagram (Terraform → GitHub → Pages)
-./images/plan.png — terraform plan showing resources
-./images/apply.png — terraform apply successful
-./images/repo-settings.png — GitHub Pages settings enabled
-./images/page-live.png — live Pages site
-Tip: on macOS use ⌘ + ⇧ + 4 for area screenshots and ⌘ + ⇧ + 5 for options/recording.
+
 Inputs & Outputs
 Inputs
 github_token (string, sensitive): Personal Access Token with repo scope.
@@ -354,15 +347,18 @@ Owner mismatch
 Ensure your provider "github" has owner = "Tristanjones7" and the token is from your personal account.
 Module for_each errors
 Don’t include provider blocks inside child modules. Pass providers from root with providers = { github = github }.
+
 Roadmap
 Optional: repo labels, topics, branch protection
 Optional: deploy keys submodule (ED25519) for CI/CD
 Optional: dynamic projects table with inputs
 Optional: CODEOWNERS, PR templates, security policy
 Optional: portfolio hub linking all live Pages sites
+
 Contact
 GitHub: @Tristanjones7
 LinkedIn: /in/tristanjones7
+
 Notes for reviewers (hiring managers)
 This repository demonstrates:
 Practical Infrastructure-as-Code with Terraform
