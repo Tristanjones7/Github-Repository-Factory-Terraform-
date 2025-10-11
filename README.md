@@ -164,8 +164,9 @@ resource "github_repository_file" "index" {
 
 Template: templates/index.tftpl
 <p align="center">
-  <img src="${avatar}" alt="${name} avatar" width="128" height="128" style="border-radius:50%;"/>
+  <img src="https://github.com/tj-cloudworks.png?size=128" alt="tj-cloudworks avatar" width="128" height="128" style="border-radius:50%;"/>
 </p>
+
 
 <h1 align="center">${name}</h1>
 <p align="center"><em>Project Info Page</em></p>
