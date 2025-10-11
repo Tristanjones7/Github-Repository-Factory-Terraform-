@@ -3,6 +3,7 @@ GitHub Repository Factory (Terraform)
 One command to create polished GitHub repositories under my personal account.
 Each repo is created, initialized, configured for GitHub Pages, and published with a templated landing page. This lets me spin up consistent, recruiter-ready projects fast.
 <p align="left"> <img src="./page-live.png" alt="Project hero screenshot" width="640"> </p>
+
 At a glance
 
 What it does: Creates and bootstraps GitHub repos under Tristanjones7 with Pages enabled and a ready-made index.md.
@@ -26,12 +27,16 @@ Security Notes
 Troubleshooting
 Roadmap
 Contact
-Highlights
+
 
 Personal owner: Targets Tristanjones7 so repos live on my profile.
+
 GitHub Pages: Automatically enabled on the repository.
+
 Templated landing page: index.md is generated from templates/index.tftpl with my name, avatar, and date.
+
 Propagation-safe UX: Opens the repo via gh using the correct owner/repo and a short wait to avoid API race conditions.
+
 Factory mode: Easily extend to create multiple repos with for_each.
 Module best practice: No provider blocks inside child modules (so count/for_each/depends_on work reliably).
 How it works
