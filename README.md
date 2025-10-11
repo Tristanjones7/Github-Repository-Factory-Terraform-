@@ -59,34 +59,51 @@ Architecture
 <p align="left"> <img src="./architecture.png" alt="Architecture diagram" width="640"> </p>
 
 Key resources
+
 github_repository — creates and configures the repo (visibility, Pages).
+
 github_repository_file — commits index.md generated from index.tftpl.
+
 data.github_user — pulls my avatar URL (sized via &s=200).
+
 time_static — fixes a stable year for the footer (no drift on plan).
+
+
 Setup
+
 Prerequisites
-Terraform 1.5+
+Terraform ~> 6.0
 Personal Access Token with repo scope
 export TF_VAR_github_token=<your_token>
 (Optional) GitHub CLI (gh) logged in locally
+
 Clone & structure
+
 /
 ├─ main.tf
 └─ templates/
    └─ index.tftpl
+
+   
 Key configuration (personal owner)
 provider "github" {
   token = var.github_token
   owner = "Tristanjones7"
 }
+
+
+
 Usage
+
 Create a single repo (Pages + templated landing page)
+
 terraform {
   required_providers {
     github = { source = "integrations/github", version = "~> 6.0" }
     time   = { source = "hashicorp/time",       version = "~> 0.11" }
   }
 }
+
 
 variable "github_token" { type = string, sensitive = true }
 
@@ -95,13 +112,16 @@ provider "github" {
   owner = "Tristanjones7"
 }
 
+
 resource "github_repository" "this" {
   name        = "my_info_page"
   description = "Repository information for project"
   visibility  = "public"
   auto_init   = true
 
+
   pages { source { branch = "main" path = "/" } }
+
 
   provisioner "local-exec" {
     command = <<EOT
@@ -112,12 +132,17 @@ EOT
   }
 }
 
+
+
 data "github_user" "owner" { username = "Tristanjones7" }
 resource "time_static" "now" {}
+
 
 locals {
   year = formatdate("YYYY", time_static.now.rfc3339)
 }
+
+
 
 resource "github_repository_file" "index" {
   repository          = github_repository.this.name
@@ -126,12 +151,17 @@ resource "github_repository_file" "index" {
   overwrite_on_create = true
   commit_message      = "Update index.md from Terraform template"
 
+
+
   content = templatefile("${path.module}/templates/index.tftpl", {
     avatar = "${data.github_user.owner.avatar_url}&s=200"
     name   = "Tristan Jones"
     date   = local.year
   })
 }
+
+
+
 Template: templates/index.tftpl
 <p align="center">
   <img src="${avatar}" alt="${name} avatar" width="128" height="128" style="border-radius:50%;"/>
