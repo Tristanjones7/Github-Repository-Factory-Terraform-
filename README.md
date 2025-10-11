@@ -38,15 +38,23 @@ Templated landing page: index.md is generated from templates/index.tftpl with my
 Propagation-safe UX: Opens the repo via gh using the correct owner/repo and a short wait to avoid API race conditions.
 
 Factory mode: Easily extend to create multiple repos with for_each.
+
 Module best practice: No provider blocks inside child modules (so count/for_each/depends_on work reliably).
 How it works
+
 Create the repo via Terraform (github_repository).
+
 Enable GitHub Pages on the repo (pages block).
+
 Render a Markdown file from the template (templatefile) and commit it to main (github_repository_file).
+
 Open the repo in the browser using the GitHub CLI with a graceful fallback if GraphQL lags.
+
 Result: a clean repo with a live project page, ready to share.
 Architecture
+
 <p align="left"> <img src="./images/architecture.png" alt="Architecture diagram" width="640"> </p>
+
 Key resources
 github_repository — creates and configures the repo (visibility, Pages).
 github_repository_file — commits index.md generated from index.tftpl.
