@@ -55,7 +55,7 @@ Open the repo in the browser using the GitHub CLI with a graceful fallback if Gr
 Result: a clean repo with a live project page, ready to share.
 Architecture
 
-<p align="left"> <img src="./images/architecture.png" alt="Architecture diagram" width="640"> </p>
+<p align="left"> <img src="./architecture.png" alt="Architecture diagram" width="640"> </p>
 
 Key resources
 github_repository — creates and configures the repo (visibility, Pages).
