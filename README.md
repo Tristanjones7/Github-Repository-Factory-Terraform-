@@ -168,9 +168,9 @@ Template: templates/index.tftpl
 </p>
 
 
-<h1 align="center">${name}</h1>
+<h1 align="center">Tristan Jones</h1>
 <p align="center"><em>Project Info Page</em></p>
-<p align="center"><sub>Last updated: ${date}</sub></p>
+<p align="center"><sub>Last updated: 2025</sub></p>
 
 <hr/>
 
@@ -178,9 +178,9 @@ Template: templates/index.tftpl
 
 | Project Name        | Web Page                                                          | Link                                                                 |
 |---------------------|-------------------------------------------------------------------|----------------------------------------------------------------------|
-| mtc-backend-prod    | No Page                                                           | [GitHub](https://github.com/morethancertified/mtc-backend-prod)      |
-| mtc-infra-prod      | [Webpage](https://morethancertified.github.io/mtc-infra-prod/)    | [GitHub](https://github.com/morethancertified/mtc-infra-prod)        |
-| mtc-frontend-prod   | [Webpage](https://morethancertified.github.io/mtc-frontend-prod/) | [GitHub](https://github.com/morethancertified/mtc-frontend-prod)     |
+| backend-prod    | No Page                                      | [GitHub](https://github.comd/backend-prod)      |
+| infra-prod      | [Webpage](https://.github.io/infra-prod/)    | [GitHub](https://github.com//infra-prod)        |
+| frontend-prod   | [Webpage](https://.github.io/frontend-prod/) | [GitHub](https://github.com//frontend-prod)     |
 
 ---
 
