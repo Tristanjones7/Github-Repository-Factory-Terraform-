@@ -1,4 +1,6 @@
-GitHub Repository Factory (Terraform)
+<h1 align="center">GitHub Repository Factory (Terraform)</h1>
+<p align="center">Create polished GitHub repos with Pages and a templated landing page via Terraform.</p>
+
 
 One command to create polished GitHub repositories under my personal account.
 Each repo is created, initialized, configured for GitHub Pages, and published with a templated landing page. This lets me spin up consistent, recruiter-ready projects fast.
