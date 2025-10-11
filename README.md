@@ -4,11 +4,17 @@ One command to create polished GitHub repositories under my personal account.
 Each repo is created, initialized, configured for GitHub Pages, and published with a templated landing page. This lets me spin up consistent, recruiter-ready projects fast.
 <p align="left"> <img src="./page-live.png" alt="Project hero screenshot" width="640"> </p>
 At a glance
+
 What it does: Creates and bootstraps GitHub repos under Tristanjones7 with Pages enabled and a ready-made index.md.
+
 Why it matters: Consistent, documented repos make it easier for teams and recruiters to review work quickly.
+
 Tech used: Terraform, GitHub Provider v6, GitHub Pages, optional deploy keys.
+
 Scale: Works for one repo or many (for_each) without legacy provider pitfalls.
-Contents
+
+Contents:
+
 Highlights
 How it works
 Architecture
@@ -21,6 +27,7 @@ Troubleshooting
 Roadmap
 Contact
 Highlights
+
 Personal owner: Targets Tristanjones7 so repos live on my profile.
 GitHub Pages: Automatically enabled on the repository.
 Templated landing page: index.md is generated from templates/index.tftpl with my name, avatar, and date.
