@@ -31,7 +31,7 @@ Roadmap
 Contact
 
 
-Personal owner: Targets Tristanjones7 so repos live on my profile.
+Personal owner: Targets my organisation so repos live on my orgs profile.
 
 GitHub Pages: Automatically enabled on the repository.
 
@@ -235,10 +235,9 @@ This project creates public repos by default—switch to visibility = "private" 
 Troubleshooting
 “Could not resolve to a Repository…”
 GitHub’s GraphQL can lag a few seconds. The provisioner uses a short wait and prints the direct URL as a fallback. The repo is created; just open the link.
+
 Owner mismatch
-Ensure your provider "github" has owner = "Tristanjones7" and the token is from your personal account.
-Module for_each errors
-Don’t include provider blocks inside child modules. Pass providers from root with providers = { github = github }.
+i ran into a peculiar problem as half way through i changed the repo ownership to my organisations so i had to sort out the billing, the codespace authorisation and what my account can do on it. after troubleshooting i then ran into a problem where terraform was communicating with github but github was not noticing my sign in and did not upload the repos...... it was because i changed the name of the repo also i will exxpand on the troubleshooting as there was a fair bit like misnaming files and referencing them but it didnt work, whilst doing modules i forgot to put the provisioner of github in , I had to specify the exact account so in the github provioner i put "owner = tj-cloudworks" as it was still trying to connect with tristanjones7.
 
 
 
