@@ -2,7 +2,7 @@ GitHub Repository Factory (Terraform)
 
 One command to create polished GitHub repositories under my personal account.
 Each repo is created, initialized, configured for GitHub Pages, and published with a templated landing page. This lets me spin up consistent, recruiter-ready projects fast.
-<p align="left"> <img src="./images/hero.png" alt="Project hero screenshot" width="640"> </p>
+<p align="left"> <img src="./hero.png" alt="Project hero screenshot" width="640"> </p>
 At a glance
 What it does: Creates and bootstraps GitHub repos under Tristanjones7 with Pages enabled and a ready-made index.md.
 Why it matters: Consistent, documented repos make it easier for teams and recruiters to review work quickly.
