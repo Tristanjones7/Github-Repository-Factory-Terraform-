@@ -10,7 +10,7 @@
 <img src="https://img.shields.io/badge/Author-Tristan%20Jones-blueviolet" alt="Author">
 
 <br/><br/>
-**Create polished GitHub repositories with Pages and templated landing pages — all through Terraform.**
+**Create polished GitHub repositories with Pages and templated landing pages, all through Terraform.**
 </div>
 
 ---
@@ -149,13 +149,17 @@ resource "github_repository_file" "index" {
 | frontend-prod | [Webpage](https://.github.io/frontend-prod/) | [GitHub](https://github.com/frontend-prod) |
 
 <p align="center"><sub>© 2025 Tristan Jones</sub></p>
+
 🧭 Commands
+
 terraform init
 terraform validate
 terraform apply
 Update only the page content
 terraform plan  -target=github_repository_file.index
 terraform apply -target=github_repository_file.index
+
+
 📥 Inputs & Outputs
 Inputs
 Name	Description
@@ -167,10 +171,14 @@ Year generated via time_static
 Outputs
 Commits a generated index.md
 (Optional) Add outputs for repo_url or full_name if needed
+
+
 🔒 Security Notes
 Never commit your GitHub token — always pass via environment variables.
 Treat deploy keys as sensitive credentials.
 Defaults to public repos; switch to visibility = "private" if required.
+
+
 🧰 Troubleshooting
 Common Issue: “Could not resolve to a Repository…”
 GitHub’s GraphQL can lag briefly after creation — a short sleep and direct URL fallback are included.
@@ -179,19 +187,35 @@ If ownership or permissions change mid-project, ensure:
 
 owner = "tj-cloudworks"
 inside your provider block.
+
+
 🛣️ Roadmap
 Add labels, topics, and branch protection
 Submodule for CI/CD deploy keys
 Dynamic project table generation
 CODEOWNERS and PR templates
 Portfolio hub linking all live Pages sites
+
+
 💬 Contact
 GitHub: @Tristanjones7
 LinkedIn: linkedin.com/in/tristanjones7
+
+
 🧾 Notes for Reviewers
+
 This project demonstrates:
-✅ Practical Infrastructure-as-Code with Terraform
-✅ Integration with GitHub APIs and Pages automation
-✅ Clean modular patterns for scalability
-✅ Focus on documentation and developer experience
+
+Practical Infrastructure-as-Code with Terraform
+
+
+Integration with GitHub APIs and Pages automation
+
+
+Clean modular patterns for scalability
+
+
+Focus on documentation and developer experience
+
+
 <div align="center"> <sub>© 2025 Tristan Jones — Cloud / DevOps Engineer</sub> </div> ```
