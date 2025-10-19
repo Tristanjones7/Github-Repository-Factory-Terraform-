@@ -1,109 +1,89 @@
-<h1 align="center">GitHub Repository Factory (Terraform)</h1>
-<p align="center">Create polished GitHub repos with Pages and a templated landing page via Terraform.</p>
+<div align="center">
 
+# 🏗️ **GitHub Repository Factory (Terraform)**
 
-One command to create polished GitHub repositories under my personal account.
-Each repo is created, initialized, configured for GitHub Pages, and published with a templated landing page. This lets me spin up consistent, recruiter-ready projects fast.
-<p align="left"> <img src="./page-live.png" alt="Project hero screenshot" width="640"> </p>
+<a href="https://www.terraform.io/"><img src="https://img.shields.io/badge/Terraform-IaC-7B42BC?logo=terraform&logoColor=white" alt="Terraform"></a>
+<a href="https://github.com/integrations/terraform-provider-github"><img src="https://img.shields.io/badge/GitHub-Provider-181717?logo=github&logoColor=white" alt="GitHub Provider"></a>
+<a href="https://pages.github.com/"><img src="https://img.shields.io/badge/GitHub%20Pages-Automation-327FC7?logo=githubpages&logoColor=white" alt="GitHub Pages"></a>
+<a href="https://developer.hashicorp.com/terraform/language/files/templatefile"><img src="https://img.shields.io/badge/Terraform-Templates-5C4EE5?logo=hashicorp&logoColor=white" alt="Terraform Templates"></a>
+<img src="https://img.shields.io/badge/Status-Live%20Factory-success" alt="Status">
+<img src="https://img.shields.io/badge/Author-Tristan%20Jones-blueviolet" alt="Author">
 
-At a glance
+<br/><br/>
+**Create polished GitHub repositories with Pages and templated landing pages — all through Terraform.**
+</div>
 
-What it does: Creates and bootstraps GitHub repos under Tristanjones7 with Pages enabled and a ready-made index.md.
+---
 
-Why it matters: Consistent, documented repos make it easier for teams and recruiters to review work quickly.
+## 🚀 **Overview**
 
-Tech used: Terraform, GitHub Provider v6, GitHub Pages, optional deploy keys.
+This project automates the creation of GitHub repositories using Terraform.  
+Each repository is initialized, configured for **GitHub Pages**, and deployed with a ready-made **index.md** landing page that includes your name, avatar, and date — ensuring all projects look professional and consistent.
 
-Scale: Works for one repo or many (for_each) without legacy provider pitfalls.
+<p align="center"><img src="./page-live.png" alt="Project hero screenshot" width="640"/></p>
 
-Contents:
+---
 
-Highlights
-How it works
-Architecture
-Setup
-Usage
-Screenshots
-Inputs & Outputs
-Security Notes
-Troubleshooting
-Roadmap
-Contact
+## 💡 **At a Glance**
 
+- **Purpose:** Create and bootstrap GitHub repos under `Tristanjones7` with Pages enabled.  
+- **Why it matters:** Consistent, documented repos make portfolios and collaboration more professional.  
+- **Tech used:** Terraform, GitHub Provider v6, GitHub Pages, optional deploy keys.  
+- **Scalable:** Supports single or multiple repos using `for_each`.  
+- **Best practice:** No provider blocks inside child modules — keeps modularity clean and reliable.
 
-Personal owner: Targets my organisation so repos live on my orgs profile.
+---
 
-GitHub Pages: Automatically enabled on the repository.
+## ⚙️ **How It Works**
 
-Templated landing page: index.md is generated from templates/index.tftpl with my name, avatar, and date.
+1. **Create the repository** via Terraform (`github_repository`).  
+2. **Enable GitHub Pages** with the `pages` block.  
+3. **Render a Markdown landing page** using `templatefile()` and commit it via `github_repository_file`.  
+4. **Open the repo** automatically in your browser using the GitHub CLI (with a short wait for propagation).  
 
-Propagation-safe UX: Opens the repo via gh using the correct owner/repo and a short wait to avoid API race conditions.
+✅ **Result:** A live, polished repository — automatically deployed and ready to share.
 
-Factory mode: Easily extend to create multiple repos with for_each.
+---
 
-Module best practice: No provider blocks inside child modules (so count/for_each/depends_on work reliably).
-How it works
+## 🧱 **Architecture**
 
-Create the repo via Terraform (github_repository).
+<p align="center"><img src="./architecture.png" alt="Architecture diagram" width="640"/></p>
 
-Enable GitHub Pages on the repo (pages block).
+| Resource | Purpose |
+|-----------|----------|
+| **github_repository** | Creates and configures the repo (visibility, Pages). |
+| **github_repository_file** | Commits `index.md` generated from template. |
+| **data.github_user** | Fetches avatar and metadata. |
+| **time_static** | Sets a fixed year for the footer (prevents drift). |
 
-Render a Markdown file from the template (templatefile) and commit it to main (github_repository_file).
+---
 
-Open the repo in the browser using the GitHub CLI with a graceful fallback if GraphQL lags.
+## 🔧 **Setup**
 
-Result: a clean repo with a live project page, ready to share.
-
-Architecture
-
-<p align="left"> <img src="./architecture.png" alt="Architecture diagram" width="640"> </p>
-
-Key resources
-
-github_repository — creates and configures the repo (visibility, Pages).
-
-github_repository_file — commits index.md generated from index.tftpl.
-
-data.github_user — pulls my avatar URL (sized via &s=200).
-
-time_static — fixes a stable year for the footer (no drift on plan).
-
-
-Setup
-
-Prerequisites
-Terraform ~> 6.0
-Personal Access Token with repo scope
-export TF_VAR_github_token=<your_token>
-(Optional) GitHub CLI (gh) logged in locally
-
-Clone & structure
-
+### **Prerequisites**
+- Terraform `~> 6.0`
+- GitHub Personal Access Token (repo scope)
+  ```bash
+  export TF_VAR_github_token=<your_token>
+(Optional) GitHub CLI (gh) configured locally
+Repo Structure
 /
 ├─ main.tf
 └─ templates/
    └─ index.tftpl
-
-   
-Key configuration (personal owner)
+Provider Configuration
 provider "github" {
   token = var.github_token
   owner = "Tristanjones7"
 }
-
-
-
-Usage
-
-Create a single repo (Pages + templated landing page)
-
+🧩 Usage
+Create a Single Repo
 terraform {
   required_providers {
     github = { source = "integrations/github", version = "~> 6.0" }
-    time   = { source = "hashicorp/time",       version = "~> 0.11" }
+    time   = { source = "hashicorp/time", version = "~> 0.11" }
   }
 }
-
 
 variable "github_token" { type = string, sensitive = true }
 
@@ -112,16 +92,13 @@ provider "github" {
   owner = "Tristanjones7"
 }
 
-
 resource "github_repository" "this" {
   name        = "my_info_page"
   description = "Repository information for project"
   visibility  = "public"
   auto_init   = true
 
-
   pages { source { branch = "main" path = "/" } }
-
 
   provisioner "local-exec" {
     command = <<EOT
@@ -131,18 +108,13 @@ echo "✅ Repository created: https://github.com/${self.full_name}"
 EOT
   }
 }
-
-
-
+Template Rendering
 data "github_user" "owner" { username = "Tristanjones7" }
 resource "time_static" "now" {}
-
 
 locals {
   year = formatdate("YYYY", time_static.now.rfc3339)
 }
-
-
 
 resource "github_repository_file" "index" {
   repository          = github_repository.this.name
@@ -151,22 +123,16 @@ resource "github_repository_file" "index" {
   overwrite_on_create = true
   commit_message      = "Update index.md from Terraform template"
 
-
-
   content = templatefile("${path.module}/templates/index.tftpl", {
     avatar = "${data.github_user.owner.avatar_url}&s=200"
     name   = "Tristan Jones"
     date   = local.year
   })
 }
-
-
-
-Template: templates/index.tftpl
+🧠 Template (index.tftpl)
 <p align="center">
   <img src="https://github.com/tj-cloudworks.png?size=128" alt="tj-cloudworks avatar" width="128" height="128" style="border-radius:50%;"/>
 </p>
-
 
 <h1 align="center">Tristan Jones</h1>
 <p align="center"><em>Project Info Page</em></p>
@@ -176,104 +142,56 @@ Template: templates/index.tftpl
 
 ## 🚀 Projects
 
-| Project Name        | Web Page                                                          | Link                                                                 |
-|---------------------|-------------------------------------------------------------------|----------------------------------------------------------------------|
-| backend-prod    | No Page                                      | [GitHub](https://github.comd/backend-prod)      |
-| infra-prod      | [Webpage](https://.github.io/infra-prod/)    | [GitHub](https://github.com//infra-prod)        |
-| frontend-prod   | [Webpage](https://.github.io/frontend-prod/) | [GitHub](https://github.com//frontend-prod)     |
+| Project Name | Web Page | Link |
+|---------------|-----------|------|
+| backend-prod | No Page | [GitHub](https://github.com/backend-prod) |
+| infra-prod | [Webpage](https://.github.io/infra-prod/) | [GitHub](https://github.com/infra-prod) |
+| frontend-prod | [Webpage](https://.github.io/frontend-prod/) | [GitHub](https://github.com/frontend-prod) |
 
----
-
-<p align="center">
-  <sub>© 2025 Tristan Jones</sub>
-</p>
-
-Run
-
+<p align="center"><sub>© 2025 Tristan Jones</sub></p>
+🧭 Commands
 terraform init
-
 terraform validate
-
 terraform apply
-
 Update only the page content
-
 terraform plan  -target=github_repository_file.index
 terraform apply -target=github_repository_file.index
-
-Inputs & Outputs
-
+📥 Inputs & Outputs
 Inputs
-
-github_token (string, sensitive): Personal Access Token with repo scope.
-
+Name	Description
+github_token	Personal Access Token with repo scope
 Derived
-
-owner is set to Tristanjones7 in the provider block.
-
-avatar is pulled from data.github_user.owner.avatar_url and sized with &s=200.
-
-date is the current year derived from time_static.
-
-
+Owner set to Tristanjones7
+Avatar pulled from data.github_user.owner.avatar_url
+Year generated via time_static
 Outputs
+Commits a generated index.md
+(Optional) Add outputs for repo_url or full_name if needed
+🔒 Security Notes
+Never commit your GitHub token — always pass via environment variables.
+Treat deploy keys as sensitive credentials.
+Defaults to public repos; switch to visibility = "private" if required.
+🧰 Troubleshooting
+Common Issue: “Could not resolve to a Repository…”
+GitHub’s GraphQL can lag briefly after creation — a short sleep and direct URL fallback are included.
+Owner Mismatch
+If ownership or permissions change mid-project, ensure:
 
-This minimal version commits index.md. (You can easily add outputs for repo URL or full name if needed.)
-
-
-Security Notes
-
-Do not commit your token. Pass it via environment (TF_VAR_github_token).
-
-Deploy keys (if you add them) should be generated and stored securely; treat private keys as secrets.
-
-This project creates public repos by default—switch to visibility = "private" if required.
-
-
-
-
-Troubleshooting
-
-
-“Could not resolve to a Repository…”
-GitHub’s GraphQL can lag a few seconds. The provisioner uses a short wait and prints the direct URL as a fallback. The repo is created; just open the link.
-
-Owner mismatch
-
-i ran into a bunch of problem as half way through i changed the repo ownership to my organisations so i had to sort out the billing, the codespace authorisation and what my account can do on it. after troubleshooting i then ran into a problem where terraform was communicating with github but github was not noticing my sign in and did not upload the repos...... it was because i changed the name of the repo also i will exxpand on the troubleshooting as there was a fair bit like misnaming files and referencing them but it didnt work, whilst doing modules i forgot to put the provisioner of github in , I had to specify the exact account so in the github provioner i put "owner = tj-cloudworks" as it was still trying to connect with tristanjones7.
-
-
-
-Roadmap
-
-Optional: repo labels, topics, branch protection
-
-Optional: deploy keys submodule (ED25519) for CI/CD
-
-Optional: dynamic projects table with inputs
-
-Optional: CODEOWNERS, PR templates, security policy
-
-Optional: portfolio hub linking all live Pages sites
-
-
-
-Contact
-
-
+owner = "tj-cloudworks"
+inside your provider block.
+🛣️ Roadmap
+Add labels, topics, and branch protection
+Submodule for CI/CD deploy keys
+Dynamic project table generation
+CODEOWNERS and PR templates
+Portfolio hub linking all live Pages sites
+💬 Contact
 GitHub: @Tristanjones7
-
-LinkedIn: /in/tristanjones7
-
-
-Notes for reviewers (hiring managers)
-
-This repository demonstrates:
-
-Practical Infrastructure-as-Code with Terraform
-
-Integration with GitHub’s API and Pages publishing
-
-Clean automation patterns that scale across multiple repos
-
-Attention to documentation and developer experience
+LinkedIn: linkedin.com/in/tristanjones7
+🧾 Notes for Reviewers
+This project demonstrates:
+✅ Practical Infrastructure-as-Code with Terraform
+✅ Integration with GitHub APIs and Pages automation
+✅ Clean modular patterns for scalability
+✅ Focus on documentation and developer experience
+<div align="center"> <sub>© 2025 Tristan Jones — Cloud / DevOps Engineer</sub> </div> ```
