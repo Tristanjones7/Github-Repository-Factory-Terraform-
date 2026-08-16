@@ -54,7 +54,7 @@ Each repository is initialized, configured for **GitHub Pages**, and deployed wi
 | **github_repository** | Creates and configures the repo (visibility, Pages). |
 | **github_repository_file** | Commits `index.md` generated from template. |
 | **data.github_user** | Fetches avatar and metadata. |
-| **time_static** | Sets a fixed year for the footer (prevents drift). |
+| **time_static** | Sets a fixed year for the footer (prevents drift) |
 
 ---
 
