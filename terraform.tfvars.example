@@ -1,0 +1,5 @@
+github_token = "ghp_replace_me"
+github_owner = "Tristanjones7"
+repository_name = "terraform-created-repository"
+repository_description = "Repository created and bootstrapped with Terraform"
+repository_visibility = "public"
